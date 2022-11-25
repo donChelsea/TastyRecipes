@@ -1,9 +1,11 @@
 package com.example.tastyrecipes.data.repository
 
 import com.example.tastyrecipes.data.remote.RecipeApi
+import com.example.tastyrecipes.domain.models.Feed
 import com.example.tastyrecipes.domain.models.Recipe
 import com.example.tastyrecipes.domain.repository.RecipeRepository
 import com.example.tastyrecipes.utils.Resource
+import com.example.tastyrecipes.utils.TRENDING_FEED
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -17,7 +19,7 @@ class RecipeRepositoryImpl @Inject constructor(
     private val api: RecipeApi
 ): RecipeRepository {
 
-    override fun getRecipeList(): Flow<Resource<List<Recipe>>> = flow {
+    override suspend fun getRecipeList(): Flow<Resource<List<Recipe>>> = flow {
         emit(Resource.Loading(isLoading = true))
 
         val results = api.getRecipesList().results
@@ -31,7 +33,7 @@ class RecipeRepositoryImpl @Inject constructor(
         emit(Resource.Error(message = e.message.toString()))
     }.flowOn(Dispatchers.IO)
 
-    override fun searchRecipes(query: String): Flow<Resource<List<Recipe>>> = flow {
+    override suspend fun searchRecipes(query: String): Flow<Resource<List<Recipe>>> = flow {
         emit(Resource.Loading(isLoading = true))
 
         val results = api.getRecipesList(query = query).results
@@ -41,5 +43,21 @@ class RecipeRepositoryImpl @Inject constructor(
         }
 
         emit(Resource.Loading(isLoading = false))
-    }
+    }.catch { e ->
+        emit(Resource.Error(message = e.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getTrendingFeed(): Flow<Resource<Feed>> = flow {
+        emit(Resource.Loading(isLoading = true))
+
+        val results = api.getTrendingRecipes().results
+
+        with(results) {
+            emit(Resource.Success(data = this.filter { it.name == TRENDING_FEED }.getOrNull(0)?.toDomain()))
+        }
+
+        emit(Resource.Loading(isLoading = false))
+    }.catch { e ->
+        emit(Resource.Error(message = e.message.toString()))
+    }.flowOn(Dispatchers.IO)
 }

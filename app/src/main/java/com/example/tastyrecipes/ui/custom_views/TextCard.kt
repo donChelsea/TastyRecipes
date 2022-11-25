@@ -18,8 +18,7 @@ fun TextCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp)
-            .clickable{ },
+            .clickable { },
         elevation = 10.dp
     ) {
         Column(

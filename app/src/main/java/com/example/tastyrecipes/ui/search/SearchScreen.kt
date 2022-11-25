@@ -28,7 +28,7 @@ fun SearchScreen() {
                 EmptySearchView()
             } else {
                 LazyColumn {
-                    items(uiState.value.recipes) { recipe ->
+                    items(uiState.value.data) { recipe ->
                         TextCard(recipe = recipe)
                     }
                 }

@@ -31,7 +31,7 @@ class MainViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { recipes ->
-                            _uiState.value = _uiState.value.copy(recipes = recipes)
+                            _uiState.value = _uiState.value.copy(data = recipes)
                         }
                     }
                     is Resource.Error -> {
@@ -48,6 +48,6 @@ class MainViewModel @Inject constructor(
 
 @Stable
 data class MainUiState(
-    val recipes: List<Recipe> = emptyList(),
+    val data: List<Recipe> = emptyList(),
     val isLoading: Boolean? = null,
 )
