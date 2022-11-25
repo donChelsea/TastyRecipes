@@ -30,4 +30,16 @@ class RecipeRepositoryImpl @Inject constructor(
     }.catch { e ->
         emit(Resource.Error(message = e.message.toString()))
     }.flowOn(Dispatchers.IO)
+
+    override fun searchRecipes(query: String): Flow<Resource<List<Recipe>>> = flow {
+        emit(Resource.Loading(isLoading = true))
+
+        val results = api.getRecipesList(query = query).results
+
+        with(results) {
+            emit(Resource.Success(data = this.map { it.toDomain() }))
+        }
+
+        emit(Resource.Loading(isLoading = false))
+    }
 }
