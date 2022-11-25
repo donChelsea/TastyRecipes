@@ -9,10 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RecipeRepositoryImpl: RecipeRepository {
-
-    private val api = RecipeApi.getApi
+@Singleton
+class RecipeRepositoryImpl @Inject constructor(
+    private val api: RecipeApi
+): RecipeRepository {
 
     override fun getRecipeList(): Flow<Resource<List<Recipe>>> = flow {
         emit(Resource.Loading(isLoading = true))
@@ -20,7 +23,7 @@ class RecipeRepositoryImpl: RecipeRepository {
         val results = api.getRecipesList().results
 
         with(results) {
-            emit(Resource.Success(data = this.map { it.toDomain() }.also { println(it.size) }))
+            emit(Resource.Success(data = this.map { it.toDomain() }))
         }
     }.catch { e ->
         emit(Resource.Error(message = e.message.toString()))

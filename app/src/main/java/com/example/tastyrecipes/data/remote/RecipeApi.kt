@@ -22,12 +22,4 @@ interface RecipeApi {
         @Query("tags") tags: String = QUERY_TAGS,
         @Query("q") query: String = QUERY_RECIPES,
     ): SimpleListResultDto<RecipeDto>
-
-    companion object {
-        val getApi = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(RecipeApi::class.java)
-    }
 }
