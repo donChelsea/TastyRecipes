@@ -1,4 +1,4 @@
-package com.example.tastyrecipes
+package com.example.tastyrecipes.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,6 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.tastyrecipes.ui.theme.TastyRecipesTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel = MainViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
