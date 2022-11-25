@@ -25,6 +25,8 @@ class RecipeRepositoryImpl @Inject constructor(
         with(results) {
             emit(Resource.Success(data = this.map { it.toDomain() }))
         }
+
+        emit(Resource.Loading(isLoading = false))
     }.catch { e ->
         emit(Resource.Error(message = e.message.toString()))
     }.flowOn(Dispatchers.IO)

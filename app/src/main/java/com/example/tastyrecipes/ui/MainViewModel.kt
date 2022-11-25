@@ -38,7 +38,7 @@ class MainViewModel @Inject constructor(
                         Log.d("MainViewModel: Error: ", result.message.toString())
                     }
                     is Resource.Loading -> {
-                        Log.d("MainViewModel: Loading: ", result.isLoading.toString())
+                        _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
                     }
                 }
             }
@@ -49,4 +49,5 @@ class MainViewModel @Inject constructor(
 @Stable
 data class MainUiState(
     val recipes: List<Recipe> = emptyList(),
+    val isLoading: Boolean? = null,
 )

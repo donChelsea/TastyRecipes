@@ -1,35 +1,28 @@
 package com.example.tastyrecipes.ui.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
-import com.example.tastyrecipes.R
+import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.tastyrecipes.ui.MainViewModel
+import com.example.tastyrecipes.ui.custom_views.LoadingScreen
+import com.example.tastyrecipes.ui.custom_views.TextCard
 
 @Composable
 fun HomeScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(id = R.color.white))
-            .wrapContentSize(Alignment.Center)
-    ) {
-        Text(
-            text = "Home View",
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 25.sp
-        )
+    val viewModel = hiltViewModel<MainViewModel>()
+    val uiState = viewModel.uiState.collectAsState()
+
+    if (uiState.value.isLoading == true) {
+        LoadingScreen()
+    } else {
+        LazyColumn {
+            items(uiState.value.recipes) { recipe ->
+                TextCard(recipe = recipe)
+            }
+        }
     }
+
+
 }
