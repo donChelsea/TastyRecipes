@@ -1,4 +1,4 @@
-package com.example.tastyrecipes.ui.main
+package com.example.tastyrecipes.ui
 
 import android.util.Log
 import androidx.compose.runtime.Stable
@@ -10,7 +10,6 @@ import com.example.tastyrecipes.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
