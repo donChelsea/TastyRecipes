@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -51,7 +53,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(navController) },
         bottomBar = { BottomNavigationBar(navController) },
         content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
@@ -82,11 +84,18 @@ fun Navigation(navController: NavHostController) {
 }
 
 @Composable
-fun TopBar() {
+fun TopBar(navController: NavController) {
     TopAppBar(
         title = { Text(text = stringResource(R.string.app_name_formatted), fontSize = 18.sp) },
         backgroundColor = colorResource(id = R.color.purple_700),
-        contentColor = Color.White
+        contentColor = Color.White,
+        navigationIcon = {
+            IconButton(onClick = {
+                navController.navigateUp()
+            }) {
+                Icon(Icons.Rounded.ArrowBack, "")
+            }
+        },
     )
 }
 
