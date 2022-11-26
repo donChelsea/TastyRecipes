@@ -31,7 +31,10 @@ fun SearchScreen() {
             } else {
                 LazyColumn {
                     items(uiState.value.data) { recipe ->
-                        RecipeCard(recipe = recipe)
+                        RecipeCard(
+                            recipe = recipe,
+                            onClick = {}
+                        )
                     }
                 }
             }

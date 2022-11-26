@@ -17,12 +17,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.tastyrecipes.R
+import com.example.tastyrecipes.ui.detail.RecipeDetailScreen
 import com.example.tastyrecipes.ui.home.HomeScreen
+import com.example.tastyrecipes.ui.navigation.NAV_ARG_RECIPE_DETAIL
 import com.example.tastyrecipes.ui.navigation.NavigationItem
 import com.example.tastyrecipes.ui.search.SearchScreen
 import com.example.tastyrecipes.ui.theme.TastyRecipesTheme
@@ -63,7 +67,13 @@ fun MainScreen() {
 fun Navigation(navController: NavHostController) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
-            HomeScreen()
+            HomeScreen(navController)
+        }
+        composable(
+            route = "${NavigationItem.RecipeDetail.route}/{id}",
+            arguments = listOf(navArgument(NAV_ARG_RECIPE_DETAIL) { type = NavType.IntType })
+        ) { backStackEntry ->
+            RecipeDetailScreen(navController, backStackEntry.arguments?.getInt(NAV_ARG_RECIPE_DETAIL) ?: 0)
         }
         composable(NavigationItem.Search.route) {
             SearchScreen()

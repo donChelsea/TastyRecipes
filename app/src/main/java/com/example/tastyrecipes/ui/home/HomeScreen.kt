@@ -9,15 +9,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.tastyrecipes.ui.custom_views.LoadingView
 import com.example.tastyrecipes.ui.custom_views.RecipeCard
+import com.example.tastyrecipes.ui.navigation.NavigationItem
 import com.example.tastyrecipes.ui.widgets.Carousel
 import com.example.tastyrecipes.ui.widgets.SectionContainer
 import com.example.tastyrecipes.utils.TRENDING_FEED
 
 @ExperimentalComposeUiApi
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavController
+) {
     val viewModel = hiltViewModel<HomeViewModel>()
     val uiState = viewModel.uiState.collectAsState()
 
@@ -31,8 +35,11 @@ fun HomeScreen() {
                 uiState.value.data.let { feed ->
                     feed?.let {
                         Carousel {
-                            items(feed.items) { item ->
-                                RecipeCard(recipe = item)
+                            items(feed.items) { recipe ->
+                                RecipeCard(
+                                    recipe = recipe,
+                                    onClick = { navController.navigate("${NavigationItem.RecipeDetail.route}/$it") }
+                                )
                             }
                         }
                     }

@@ -34,12 +34,13 @@ val IMAGE_HEIGHT = 500.dp
 @ExperimentalComposeUiApi
 @Composable
 fun RecipeCard(
-    recipe: Recipe
+    recipe: Recipe,
+    onClick: (Int) -> Unit
 ) {
     Card(
         modifier = Modifier
             .size(width = CARD_WIDTH, height = CARD_HEIGHT)
-            .clickable { },
+            .clickable { onClick(recipe.id) },
         elevation = 10.dp
     ) {
         Box {
@@ -58,7 +59,14 @@ fun RecipeCard(
             Box(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .background(brush = Brush.verticalGradient(listOf(Color.Transparent, Color.Black)))
+                    .background(
+                        brush = Brush.verticalGradient(
+                            listOf(
+                                Color.Transparent,
+                                Color.Black
+                            )
+                        )
+                    )
             ) {
                 Column(
                     modifier = Modifier
@@ -99,6 +107,7 @@ fun PreviewRecipeCard() {
             "",
             8,
             listOf(Topic("chicken"))
-        )
+        ),
+        onClick = {}
     )
 }
