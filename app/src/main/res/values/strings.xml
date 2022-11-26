@@ -1,4 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">TastyRecipes</string>
     <string name="app_name_formatted">Tasty Recipes</string>
+    <string name="serves_text">Serves %1$s</string>
+    <string name="prep_time_text">%1$s Min</string>
+    <string name="lets_go">Let\'s go!</string>
+    <plurals name="numberOfStarsRating">
+        <item quantity="one">%d star</item>
+        <item quantity="other">%d stars</item>
+    </plurals>
 </resources>

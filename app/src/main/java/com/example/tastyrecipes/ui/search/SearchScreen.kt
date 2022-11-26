@@ -5,12 +5,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tastyrecipes.ui.custom_views.EmptySearchView
 import com.example.tastyrecipes.ui.custom_views.LoadingView
-import com.example.tastyrecipes.ui.custom_views.TextCard
+import com.example.tastyrecipes.ui.custom_views.RecipeCard
 import com.example.tastyrecipes.ui.widgets.SearchBar
 
+@ExperimentalComposeUiApi
 @Composable
 fun SearchScreen() {
     val viewModel = hiltViewModel<SearchViewModel>()
@@ -29,7 +31,7 @@ fun SearchScreen() {
             } else {
                 LazyColumn {
                     items(uiState.value.data) { recipe ->
-                        TextCard(recipe = recipe)
+                        RecipeCard(recipe = recipe)
                     }
                 }
             }

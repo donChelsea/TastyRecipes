@@ -13,3 +13,6 @@ const val FEED_VEGETARIAN = false
 const val FEED_FROM = 0
 
 const val TRENDING_FEED = "Trending"
+
+const val DELIMITER = ", "
+
