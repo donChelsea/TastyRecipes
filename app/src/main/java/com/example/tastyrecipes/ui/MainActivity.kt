@@ -76,7 +76,7 @@ fun Navigation(navController: NavHostController) {
             RecipeDetailScreen(navController, backStackEntry.arguments?.getInt(NAV_ARG_RECIPE_DETAIL) ?: 0)
         }
         composable(NavigationItem.Search.route) {
-            SearchScreen()
+            SearchScreen(navController)
         }
     }
 }

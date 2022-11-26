@@ -23,9 +23,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.tastyrecipes.R
 import com.example.tastyrecipes.domain.models.Recipe
-import com.example.tastyrecipes.domain.models.Topic
 import com.example.tastyrecipes.domain.models.UserRating
 import com.example.tastyrecipes.ui.theme.White
+import com.example.tastyrecipes.utils.mockRecipe
 
 val CARD_WIDTH = 300.dp
 val CARD_HEIGHT = 200.dp
@@ -79,11 +79,13 @@ fun RecipeCard(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.width(CARD_WIDTH)
                     )
-                    StarRatingView(
-                        score = recipe.userRating.score,
-                        textColor = Color.White,
-                        modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
-                    )
+                    recipe.userRating?.score?.let {
+                        StarRatingView(
+                            score = it,
+                            textColor = Color.White,
+                            modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
+                        )
+                    }
                 }
             }
         }
@@ -95,19 +97,7 @@ fun RecipeCard(
 @Composable
 fun PreviewRecipeCard() {
     RecipeCard(
-        recipe = Recipe(
-            "Original Orange Chicken by Panda Express ",
-            3383,
-            20,
-            UserRating(
-                0.8881424253
-            ),
-            "",
-            "",
-            "",
-            8,
-            listOf(Topic("chicken"))
-        ),
+        recipe = mockRecipe,
         onClick = {}
     )
 }

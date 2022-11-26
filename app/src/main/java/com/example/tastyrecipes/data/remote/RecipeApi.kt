@@ -33,4 +33,13 @@ interface RecipeApi {
         @Query("vegetarian") vegetarian: Boolean = FEED_VEGETARIAN,
         @Query("from") from: Int = FEED_FROM,
     ): SimpleListResultDto<FeedDto>
+
+    @Headers(
+        "X-RapidAPI-Key: 7611d2cd3fmsh22f441ac2b4cffcp1d68bejsn13399318f70b",
+        "X-RapidAPI-Host: tasty.p.rapidapi.com"
+    )
+    @GET("recipes/get-more-info")
+    suspend fun getRecipeDetails(
+        @Query("id") id: Int,
+    ): RecipeDto
 }

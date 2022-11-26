@@ -2,19 +2,27 @@ package com.example.tastyrecipes.ui.search
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.tastyrecipes.ui.custom_views.EmptySearchView
 import com.example.tastyrecipes.ui.custom_views.LoadingView
 import com.example.tastyrecipes.ui.custom_views.RecipeCard
+import com.example.tastyrecipes.ui.custom_views.SearchItemCard
+import com.example.tastyrecipes.ui.navigation.NavigationItem
 import com.example.tastyrecipes.ui.widgets.SearchBar
 
 @ExperimentalComposeUiApi
 @Composable
-fun SearchScreen() {
+fun SearchScreen(
+    navController: NavController
+) {
     val viewModel = hiltViewModel<SearchViewModel>()
     val uiState = viewModel.uiState.collectAsState()
 
@@ -29,11 +37,13 @@ fun SearchScreen() {
             if (uiState.value.query.isEmpty()) {
                 EmptySearchView()
             } else {
-                LazyColumn {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2)
+                ) {
                     items(uiState.value.data) { recipe ->
-                        RecipeCard(
+                        SearchItemCard(
                             recipe = recipe,
-                            onClick = {}
+                            onClick = { navController.navigate("${NavigationItem.RecipeDetail.route}/$it") }
                         )
                     }
                 }

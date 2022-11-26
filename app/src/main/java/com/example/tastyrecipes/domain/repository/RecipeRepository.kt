@@ -12,4 +12,6 @@ interface RecipeRepository {
     suspend fun searchRecipes(query: String): Flow<Resource<List<Recipe>>>
 
     suspend fun getTrendingFeed(): Flow<Resource<Feed>>
+
+    suspend fun getRecipeDetails(id: Int): Flow<Resource<Recipe>>
 }

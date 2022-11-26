@@ -10,20 +10,25 @@ import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.tastyrecipes.ui.theme.Purple700
 import com.example.tastyrecipes.ui.theme.White
 
+@ExperimentalComposeUiApi
 @Composable
 fun SearchBar(
     onClick: (String) -> Unit
 ) {
     var query: String by rememberSaveable { mutableStateOf("") }
     var showClearIcon by rememberSaveable { mutableStateOf(false) }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     if (query.isEmpty()) {
         showClearIcon = false
@@ -39,6 +44,7 @@ fun SearchBar(
         keyboardActions = KeyboardActions(onDone = {
             println(query)
             onClick(query)
+            keyboardController?.hide()
         }),
         leadingIcon = {
             Icon(

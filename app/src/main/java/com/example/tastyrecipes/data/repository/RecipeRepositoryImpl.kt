@@ -60,4 +60,19 @@ class RecipeRepositoryImpl @Inject constructor(
     }.catch { e ->
         emit(Resource.Error(message = e.message.toString()))
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun getRecipeDetails(id: Int): Flow<Resource<Recipe>> = flow {
+        emit(Resource.Loading(isLoading = true))
+
+        val result = api.getRecipeDetails(id)
+
+        with(result) {
+            emit(Resource.Success(data = this.toDomain()))
+        }
+
+        emit(Resource.Loading(isLoading = false))
+    }.catch { e ->
+        emit(Resource.Error(message = e.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
 }
