@@ -29,7 +29,8 @@ fun SearchItemCard(
         modifier = Modifier
             .size(width = 200.dp, height = 220.dp)
             .padding(12.dp)
-            .clickable { onClick(recipe.id) }
+            .clickable { onClick(recipe.id) },
+        elevation = 10.dp,
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

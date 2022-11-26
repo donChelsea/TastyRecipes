@@ -16,12 +16,14 @@ import androidx.compose.ui.unit.dp
 fun Carousel(
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(horizontal = 24.dp),
+    horizontalArrangement: Arrangement.HorizontalOrVertical = Arrangement.spacedBy(20.dp),
     content: LazyListScope.() -> Unit,
 ) {
     LazyRow(
         modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 24.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        contentPadding = contentPadding,
+        horizontalArrangement = horizontalArrangement,
         state = state,
         content = content
     )

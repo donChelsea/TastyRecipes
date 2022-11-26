@@ -1,5 +1,6 @@
 package com.example.tastyrecipes.utils
 
+import com.example.tastyrecipes.domain.models.Nutrition
 import com.example.tastyrecipes.domain.models.Recipe
 import com.example.tastyrecipes.domain.models.Topic
 import com.example.tastyrecipes.domain.models.UserRating
@@ -18,8 +19,6 @@ const val FEED_FROM = 0
 
 const val TRENDING_FEED = "Trending"
 
-const val DELIMITER = ", "
-
 val mockRecipe = Recipe(
     "Original Orange Chicken by Panda Express ",
     3383,
@@ -27,9 +26,15 @@ val mockRecipe = Recipe(
     UserRating(
         0.8881424253
     ),
-    "",
+    "https://img.buzzfeed.com/tasty-app-user-assets-prod-us-east-1/recipes/1308cc4ac878420da65b1423001a9dbd.jpeg",
     "",
     "",
     8,
-    listOf(Topic("chicken"))
+    listOf(Topic("chicken")),
+    description = "",
+    nutrition = null,
+    instructions = null,
+    sections = null
 )
+
+val mockNutrition = Nutrition(130, 120, 32, 54, 4, 6)

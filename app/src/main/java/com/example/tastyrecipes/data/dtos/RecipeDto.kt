@@ -1,7 +1,5 @@
 package com.example.tastyrecipes.data.dtos
 
-import com.example.tastyrecipes.domain.models.*
-import com.example.tastyrecipes.utils.DELIMITER
 import com.google.gson.annotations.SerializedName
 
 data class RecipeDto(
@@ -20,32 +18,41 @@ data class RecipeDto(
     @SerializedName("num_servings")
     val servings: Int?,
     val topics: List<TopicDto>?,
-) {
-    fun toDomain() = Recipe(
-        name = name,
-        id = id,
-        prepTimeMinutes = prepTimeMinutes,
-        userRating = userRating?.toDomain(),
-        thumbnail = thumbnail,
-        thumbnailAltText = thumbnailAltText,
-        video = video,
-        servings = servings,
-        topics = topics.orEmpty().map { it.toDomain() },
-    )
-}
+    val description: String?,
+    val nutrition: NutritionDto?,
+    val instructions: List<InstructionDto>?,
+    val sections: List<SectionDto>?,
+)
 
 data class UserRatingDto(
     val score: Double
-) {
-    fun toDomain() = UserRating(
-        score = score
-    )
-}
+)
 
 data class TopicDto(
     val name: String
-) {
-    fun toDomain() = Topic(
-        name = name
-    )
-}
+)
+
+data class InstructionDto(
+    val position: Int,
+    @SerializedName("display_text")
+    val text: String,
+)
+
+data class NutritionDto(
+    val carbohydrates: Int,
+    val fat: Int,
+    val protein: Int,
+    val sugar: Int,
+    val fiber: Int,
+    val calories: Int,
+)
+
+data class SectionDto(
+    @SerializedName("components")
+    val ingredients: List<IngredientDto>
+)
+
+data class IngredientDto(
+    @SerializedName("raw_text")
+    val text: String
+)

@@ -28,7 +28,6 @@ class DetailViewModel @Inject constructor(
                     is Resource.Success -> {
                         result.data?.let { recipe ->
                             _uiState.value = uiState.value.copy(data = recipe)
-                            println(recipe.name)
                         }
                     }
                     is Resource.Error -> {
