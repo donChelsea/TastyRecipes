@@ -23,7 +23,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.tastyrecipes.R
-import com.example.tastyrecipes.ui.custom_views.NutritionView
+import com.example.tastyrecipes.ui.custom_views.*
 
 @Composable
 fun RecipeDetailScreen(
@@ -94,7 +94,12 @@ fun RecipeDetailScreen(
             style = MaterialTheme.typography.subtitle1,
             modifier = Modifier.padding(16.dp)
         )
-        recipe?.nutrition?.let { NutritionView(nutrition = it) }
+        recipe?.nutrition?.let {
+            NutritionView(nutrition = it)
+        }
+
+        recipe?.sections?.let { IngredientsView(it) }
+
     }
 }
 //

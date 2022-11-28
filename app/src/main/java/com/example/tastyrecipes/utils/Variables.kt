@@ -1,9 +1,6 @@
 package com.example.tastyrecipes.utils
 
-import com.example.tastyrecipes.domain.models.Nutrition
-import com.example.tastyrecipes.domain.models.Recipe
-import com.example.tastyrecipes.domain.models.Topic
-import com.example.tastyrecipes.domain.models.UserRating
+import com.example.tastyrecipes.domain.models.*
 
 const val BASE_URL = "https://tasty.p.rapidapi.com/"
 
@@ -38,3 +35,11 @@ val mockRecipe = Recipe(
 )
 
 val mockNutrition = Nutrition(130, 120, 32, 54, 4, 6)
+
+val mockSection = Section(
+    ingredients = listOf(
+        Ingredient("Onion"),
+        Ingredient("Carrot"),
+        Ingredient("Peppers"),
+    )
+)
